@@ -88,17 +88,31 @@ def menu():
      print("4. Eliminar contacto")
      print("5. Ver todos")
      print("6. Salir")
-     opcion = int(input("Escoge la opcion: "))
+     try:
+      opcion = int(input("Escoge la opcion: "))
+      
+     except ValueError:
+      print("Escoge solo numeros, nada de letras :)")
+      continue
+     
+       
 
-
+      
      if opcion == 1:
-      nombre = input("Nombre: ")
-      telefono = input("Telefono: ")
-      agregar(nombre, telefono)
-
+      
+       nombre = input("Nombre: ")
+       telefono = input("Telefono: ")
+       agregar(nombre, telefono)
+      
      elif opcion == 2:
-      nombre = input("Buscar nombre: ")
-      buscar_contacto(nombre)
+      while True:
+        nombre = input("Buscar nombre: ")
+        if any(char.isdigit() for char in nombre):
+          print("Solo escribe letras, nada de números.")
+        else:
+          buscar_contacto(nombre)
+          break
+        
 
      elif opcion == 3:
       print("El id es requerido para cambiar el nombre de contacto ")
@@ -108,15 +122,21 @@ def menu():
       editar_contacto(id_contacto, nuevo_telefono, nuevo_nombre)
 
      elif opcion == 4:
-      id_contacto = int(input("Selecciona id: "))
-      eliminar_contacto(id_contacto)
+      while True:
+       try:
+        id_contacto = int(input("Selecciona id: "))
+        eliminar_contacto(id_contacto)
+        break
+       except ValueError:
+        print("Solo pon el ID(numero), nada de letras")
+        
 
      elif opcion == 5:
       mostrar_todo()
 
      elif opcion == 6:
-      print("Saliendo...")
-      break
+       print("Saliendo...")
+
      else:
       print("Es incorrecta la opcion, vuelve a intentar")
 
